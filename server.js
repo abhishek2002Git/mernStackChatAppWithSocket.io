@@ -1,15 +1,15 @@
 const app = require('express')();
-const userRoutes = require('./routes/userRoutes')
-const chatRoutes = require('./routes/chatRoutes')
-const messageRoutes = require('./routes/messageRoutes')
-const {notFound , errorHandler} = require('./middleware/errorMiddleware')
+const userRoutes = require('./backend/routes/userRoutes')
+const chatRoutes = require('./backend/routes/chatRoutes')
+const messageRoutes = require('./backend/routes/messageRoutes')
+const {notFound , errorHandler} = require('./backend/middleware/errorMiddleware')
 const path = require('path')
 
 
 const dotenv = require('dotenv');
 dotenv.config()   // to use variables present in .env file
 
-const connectDB = require("./config/db");
+const connectDB = require("./backend/config/db");
 const express = require('express');
 connectDB();
 
@@ -23,36 +23,20 @@ app.use('/api/user' , userRoutes)
 app.use('/api/chat' , chatRoutes)
 app.use('/api/message' , messageRoutes)
 
-// --------------------------deployment------------------------------
+// ///////////////////deployment////////////////////////////////////////////////
 
-// const __dirname1 = path.resolve();
-
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static(path.join(__dirname1, "/frontend/build")));
-
-//   app.get("*", (req, res) =>
-//     res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"))
-//   );
-// } else {
-//   app.get("/", (req, res) => {
-//     res.send("API is running..");
-//   });
-// }
-
-// --------------------------deployment------------------------------
+const __dirname1 = path.resolve()
 
 
 app.use(notFound)
 app.use(errorHandler)
 
-const PORT = process.env.PORT || 5000;
-const server = app.listen(PORT, () => {
-    console.log(`Server is running on ${PORT}`);
-})
+const PORT = process.env.PORT;
+const server = app.listen(5000, console.log(`server started on ${PORT}`))
 const io = require('socket.io')(server , {
     pingTimeout: 60000,
     cors: {
-        origin: "https://abhishekshukla-chatapp.netlify.app",
+        origin: "http://localhost:3000",
     },
 })
 
