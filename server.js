@@ -25,7 +25,7 @@ app.use('/api/message' , messageRoutes)
 
 // ///////////////////deployment////////////////////////////////////////////////
 
-const __dirname1 = path.resolve()
+// const __dirname1 = path.resolve()
 
 
 app.use(notFound)
