@@ -31,8 +31,13 @@ app.use('/api/message' , messageRoutes)
 app.use(notFound)
 app.use(errorHandler)
 
-const PORT = process.env.PORT;
-const server = app.listen(5000, console.log(`server started on ${PORT}`))
+// const PORT = process.env.PORT;
+const hostname = '0.0.0.0';
+const port = 5000;
+// const server = app.listen(5000, console.log(`server started on ${PORT}`))
+const server = app.listen(port, hostname, () => {
+    console.log(`server started at http://${hostname}:${port}/`);
+})
 const io = require('socket.io')(server , {
     pingTimeout: 60000,
     cors: {
