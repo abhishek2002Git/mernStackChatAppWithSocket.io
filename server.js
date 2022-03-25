@@ -25,19 +25,17 @@ app.use('/api/message' , messageRoutes)
 
 // ///////////////////deployment////////////////////////////////////////////////
 
-// const __dirname1 = path.resolve()
+const __dirname1 = path.resolve()
 
 
 app.use(notFound)
 app.use(errorHandler)
 
-// const PORT = process.env.PORT;
-const hostname = '0.0.0.0';
-const port = 5000;
-// const server = app.listen(5000, console.log(`server started on ${PORT}`))
-const server = app.listen(port, hostname, () => {
-    console.log(`server started at http://${hostname}:${port}/`);
-})
+const port = 9000;
+const server = app.listen(9000, console.log(`server started on ${port}`))
+// app.listen(9000, () => {
+//     console.log(`starting server on ${port}`);
+// })
 const io = require('socket.io')(server , {
     pingTimeout: 60000,
     cors: {
